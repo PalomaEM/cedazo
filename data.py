@@ -88,7 +88,8 @@ def format_condition(ws, colNr, condition, color):
            cell_new.fill = color
 
 
-def find_column(ws):
+def find_column_lead(ws):
+    """Metodo que busca la columna que queremos tratar"""
     for row in ws.iter_rows(): 
         for cell in row: 
             if cell.value == "LeadPracticeArea": 
@@ -97,11 +98,27 @@ def find_column(ws):
                 
 
 def delete_rows_LeadPracticeArea(ws, idcolum):
+    """Una vez que hemos encontrado en el metodo find_column_lead, evaluamos recorremos las celdas evaluando el contenido """
     for column in ws.iter_cols(): 
         for cell in column: 
             if cell.column == idcolum and cell.value != 'CCA_SCE_ES' and cell.value != 'LeadPracticeArea': 
-                ws.delete_rows(cell.row) #print(cell.column, cell.row, cell.value)
+                ws.delete_rows(cell.row) 
 		      
 
     
-      
+def find_column_Team(ws):
+    """Metodo que busca la columna que queremos tratar"""
+    for row in ws.iter_rows(): 
+        for cell in row: 
+            if cell.value == "TeamRequestStatus": 
+                return cell.column
+            
+
+def delete_rows_TeamRequestStatu(ws, idcolum):
+    """Una vez que hemos encontrado en el metodo find_column_lead, evaluamos recorremos las celdas evaluando el contenido """
+    for column in ws.iter_cols(): 
+        for cell in column: 
+            if cell.column == idcolum and cell.value == 'Draft' and cell.value != 'TeamRequestStatus': 
+                ws.delete_rows(cell.row) 
+		      
+

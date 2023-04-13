@@ -3,7 +3,7 @@
 #from openpyxl import Workbook
 import openpyxl
 
-from data import change_colour, delete_rows_LeadPracticeArea, find_column, format_column, format_condition, remove, unmerge_cells
+from data import change_colour, delete_rows_LeadPracticeArea, delete_rows_TeamRequestStatu, find_column_Team, find_column_lead, format_column, format_condition, remove, unmerge_cells
 from miargparse import parser
 from openpyxl.styles import PatternFill 
 #Damos la localización del fichero de entrada
@@ -42,8 +42,10 @@ color_yellow = PatternFill(start_color="FFFFFF99", end_color="FFFFFF99", fill_ty
 format_condition(ws, colNr= 9, condition="CRITICA", color=color_yellow)
 
 #Borrar Filas columna R -- Eliminar las que no sean CCA_SCE_ES
-delete_rows_LeadPracticeArea(ws, find_column(ws))
+delete_rows_LeadPracticeArea(ws, find_column_lead(ws))
 
+#Borrar filas columna C -- Eliminar las filas que sean igual a Draf
+delete_rows_TeamRequestStatu(ws,find_column_Team(ws))
 
 
 
