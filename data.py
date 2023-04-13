@@ -87,4 +87,21 @@ def format_condition(ws, colNr, condition, color):
         if cell_condition.value == condition:
            cell_new.fill = color
 
+
+def find_column(ws):
+    for row in ws.iter_rows(): 
+        for cell in row: 
+            if cell.value == "LeadPracticeArea": 
+                return cell.column
+                
+                
+
+def delete_rows_LeadPracticeArea(ws, idcolum):
+    for column in ws.iter_cols(): 
+        for cell in column: 
+            if cell.column == idcolum and cell.value != 'CCA_SCE_ES' and cell.value != 'LeadPracticeArea': 
+                ws.delete_rows(cell.row) #print(cell.column, cell.row, cell.value)
+		      
+
+    
       

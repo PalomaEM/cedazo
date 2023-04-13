@@ -3,7 +3,7 @@
 #from openpyxl import Workbook
 import openpyxl
 
-from data import change_colour, format_column, format_condition, insert_column, remove, unmerge_cells
+from data import change_colour, delete_rows_LeadPracticeArea, find_column, format_column, format_condition, remove, unmerge_cells
 from miargparse import parser
 from openpyxl.styles import PatternFill 
 #Damos la localización del fichero de entrada
@@ -32,7 +32,7 @@ remove(ws,1,11)
 change_colour(ws)
 
 # Metodo que inserta una columna nueva detrás de la columna H poniendo la cabecera y copiando el formato de la columna H
-insert_column(ws, colNr=9, headerRow=1, headerVal='FTES. Pdtes.')
+#insert_column(ws, colNr=9, headerRow=1, headerVal='FTES. Pdtes.')
 
 #Metodo que da formato a la columna que se ha creado
 format_column(ws, colNr= 9)
@@ -40,6 +40,12 @@ format_column(ws, colNr= 9)
 #Metodo que da formato a la columna que se ha creado según criterio  
 color_yellow = PatternFill(start_color="FFFFFF99", end_color="FFFFFF99", fill_type = "solid")
 format_condition(ws, colNr= 9, condition="CRITICA", color=color_yellow)
+
+#Borrar Filas columna R -- Eliminar las que no sean CCA_SCE_ES
+delete_rows_LeadPracticeArea(ws, find_column(ws))
+
+
+
 
 # Save the workbook to the output file
 wb.save(args.ruta_output)
