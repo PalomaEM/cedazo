@@ -59,6 +59,7 @@ def insert_column(ws, colNr ,headerRow , headerVal):
     #añadimos el título a la columna 
     ws.cell(row=headerRow, column=colNr).value = headerVal
 
+
 def format_column(ws, colNr):
     '''Metodo que da formato a la columna que se ha creado'''
     max_row = ws.max_row
@@ -135,3 +136,7 @@ def change_column_TeamRequestComment1(ws):
         for cell in row:
             if cell.value == "Team Request Comment 1":
                 cell.value = "CLIENTE"
+
+
+
+

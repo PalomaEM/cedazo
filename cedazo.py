@@ -3,7 +3,7 @@
 #from openpyxl import Workbook
 import openpyxl
 
-from data import change_colour, change_column_AdditionalNotes, change_column_TeamRequestComment1, delete_rows_LeadPracticeArea, delete_rows_TeamRequestStatu, find_column_Team, find_column_lead, format_column, format_condition, remove, unmerge_cells
+from data import change_colour, change_column_AdditionalNotes, change_column_TeamRequestComment1, delete_rows_LeadPracticeArea, delete_rows_TeamRequestStatu, find_column_Team, find_column_lead, format_column, format_condition, insert_column, remove, unmerge_cells
 from miargparse import parser
 from openpyxl.styles import PatternFill 
 #Damos la localización del fichero de entrada
@@ -32,7 +32,10 @@ remove(ws,1,11)
 change_colour(ws)
 
 # Metodo que inserta una columna nueva detrás de la columna H poniendo la cabecera y copiando el formato de la columna H
-#insert_column(ws, colNr=9, headerRow=1, headerVal='FTES. Pdtes.')
+insert_column(ws, colNr=9, headerRow=1, headerVal='FTES. Pdtes.')
+
+#Rellanamos la columna nueva FTES. Pdtes
+#insert_column_pendingFTES(ws)
 
 #Metodo que da formato a la columna que se ha creado
 format_column(ws, colNr= 9)
@@ -49,6 +52,9 @@ delete_rows_TeamRequestStatu(ws,find_column_Team(ws))
 
 #Busca el nombre de la cabecera F y lo cambia por CRITICIDAD 
 change_column_AdditionalNotes(ws)
+
+#Busca si la columna nueva 'FTES. Pdtes = 0, poner en la columna CRITICIDAD el valor ‘CUBIERTA’
+#change_column_criticality(ws, find_column_criticality)
 
 #Busca el nombre de la cabecera O y lo cambia por CLIENTE
 change_column_TeamRequestComment1(ws)
