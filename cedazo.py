@@ -3,7 +3,7 @@
 #from openpyxl import Workbook
 import openpyxl
 
-from data import change_colour, change_column_AdditionalNotes, delete_rows_LeadPracticeArea, delete_rows_TeamRequestStatu, find_column_Team, find_column_lead, format_column, format_condition, remove, unmerge_cells
+from data import change_colour, change_column_AdditionalNotes, change_column_TeamRequestComment1, delete_rows_LeadPracticeArea, delete_rows_TeamRequestStatu, find_column_Team, find_column_lead, format_column, format_condition, remove, unmerge_cells
 from miargparse import parser
 from openpyxl.styles import PatternFill 
 #Damos la localización del fichero de entrada
@@ -49,6 +49,9 @@ delete_rows_TeamRequestStatu(ws,find_column_Team(ws))
 
 #Busca el nombre de la cabecera F y lo cambia por CRITICIDAD 
 change_column_AdditionalNotes(ws)
+
+#Busca el nombre de la cabecera O y lo cambia por CLIENTE
+change_column_TeamRequestComment1(ws)
 
 # Save the workbook to the output file
 wb.save(args.ruta_output)

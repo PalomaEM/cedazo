@@ -130,3 +130,8 @@ def change_column_AdditionalNotes(ws):
             
 
 
+def change_column_TeamRequestComment1(ws):
+    for row in ws.iter_rows():
+        for cell in row:
+            if cell.value == "Team Request Comment 1":
+                cell.value = "CLIENTE"
