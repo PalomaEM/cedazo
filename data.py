@@ -122,3 +122,11 @@ def delete_rows_TeamRequestStatu(ws, idcolum):
                 ws.delete_rows(cell.row) 
 		      
 
+def change_column_AdditionalNotes(ws):
+    for row in ws.iter_rows(): 
+        for cell in row: 
+            if cell.value == "Additional Notes": 
+               cell.value = "CRITICIDAD"
+            
+
+
