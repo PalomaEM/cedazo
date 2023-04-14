@@ -1,4 +1,5 @@
 from copy import copy
+import numbers
 from types import CellType
 import openpyxl
 from openpyxl.styles import PatternFill 
@@ -28,12 +29,8 @@ def remove(ws,ini,end):
 def change_colour(ws): 
     '''Metodo que a todas la celdas les pone color blanco (quita el amarillo) '''
     max_row = ws.max_row
-    #print('El numero de filas rellenas es: ', max_row)
     max_column = ws.max_column
-    #print('El numero de columnas rellenas es: ', max_column)
-
-    # Hacemos doble bucle para recoger todos los datos de la tabla que empezaba en fila 12 (ahora empezara en la tabla 
-    # destino en la fila 1).
+    
     for i_row in range(1, max_row + 1):
        for i_column in range(1, max_column + 1):
            cell = ws.cell(row = i_row, column = i_column)
@@ -56,17 +53,25 @@ def insert_column(ws, colNr ,headerRow , headerVal):
 
     ws.cell(row=headerRow, column=colNr).value = headerVal
 
-def add_column_GH(ws):
+def subtract_two_column(ws):
+    """Obtiene el resultado de la resta entre la columna G Y H"""
     g_col, h_col = ['G', 'H']
-    for row in range(1, 15):
-        result_cell = 'A{}'.format(row)
+    for row in range(ws.max_row, 1, -1):
+        result_cell = 'I{}'.format(row)
 
     g_value = ws[g_col + str(row)].value
     h_value = ws[h_col +str(row)].value
 
-    if g_value and h_value != None:   
-       ws[result_cell] =  g_value + h_value
+    if g_value and h_value:   
+       ws[result_cell] =  int(g_value) - int(h_value)
      
+
+def format_column_number(ws):
+    """Formatea la columna H a numero y le quita las advertencias de error """
+    for row in range(ws.max_row, 1, -1):
+        print("hola")
+        #ws['H' + str(row)].numb_format = numbers.FORMAT_NUMBER
+        #ws['H' + str(row)].typeformat = "n"
 
 
 def format_column(ws, colNr):

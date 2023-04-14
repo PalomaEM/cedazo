@@ -3,7 +3,7 @@
 #from openpyxl import Workbook
 import openpyxl
 
-from data import change_colour, change_column_AdditionalNotes, change_column_TeamRequestComment1, delete_rows_LeadPracticeArea, delete_rows_TeamRequestStatu, find_column_Team, find_column_lead, format_column, format_condition, format_condition_iter2, insert_column, remove, unmerge_cells
+from data import change_colour, change_column_AdditionalNotes, change_column_TeamRequestComment1, delete_rows_LeadPracticeArea, delete_rows_TeamRequestStatu, find_column_Team, find_column_lead, format_column, format_column_number, format_condition, format_condition_iter2, insert_column, remove, subtract_two_column, unmerge_cells
 from miargparse import parser
 from openpyxl.styles import PatternFill 
 
@@ -30,7 +30,10 @@ format_condition_iter2(ws, colNr= 9, condition="CRITICA", color=color_yellow)
 insert_column(ws, colNr=9, headerRow=1, headerVal='FTES. Pdtes.')
 
 #Sumamos las columnas G y H --------------------------->
-#add_column_GH(ws)
+subtract_two_column(ws)
+
+#Quitamos los warning de la columna H y la convertimos de general a number
+format_column_number(ws)
 
 #Metodo que da formato a la columna que se ha creado
 format_column(ws, colNr= 9)
