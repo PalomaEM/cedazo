@@ -19,8 +19,6 @@ remove(ws,1,11)
 
 change_colour(ws)
 
-insert_column(ws, colNr=9, headerRow=1, headerVal='FTES. Pdtes.')
-
 #Metodo que da formato a la columna que se ha creado usando range
 format_column(ws, colNr= 9)
 
@@ -31,8 +29,8 @@ format_condition_iter2(ws, colNr= 9, condition="CRITICA", color=color_yellow)
 # Metodo que inserta una columna nueva detrás de la columna H poniendo la cabecera y copiando el formato de la columna H
 insert_column(ws, colNr=9, headerRow=1, headerVal='FTES. Pdtes.')
 
-#Rellanamos la columna nueva FTES. Pdtes
-#insert_column_pendingFTES(ws)
+#Sumamos las columnas G y H --------------------------->
+#add_column_GH(ws)
 
 #Metodo que da formato a la columna que se ha creado
 format_column(ws, colNr= 9)

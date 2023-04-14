@@ -56,6 +56,18 @@ def insert_column(ws, colNr ,headerRow , headerVal):
 
     ws.cell(row=headerRow, column=colNr).value = headerVal
 
+def add_column_GH(ws):
+    g_col, h_col = ['G', 'H']
+    for row in range(1, 15):
+        result_cell = 'A{}'.format(row)
+
+    g_value = ws[g_col + str(row)].value
+    h_value = ws[h_col +str(row)].value
+
+    if g_value and h_value != None:   
+       ws[result_cell] =  g_value + h_value
+     
+
 
 def format_column(ws, colNr):
     '''Metodo que da formato a la columna que se ha creado usando método range'''
