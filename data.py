@@ -21,12 +21,12 @@ def unmerge_cells(ws):
         
         ws.unmerge_cells(range_string=str(merge))
 
-def remove(ws,ini,end): 
+def remove_rows(ws,ini,end): 
     '''Metodo que sirve para borrar todas las filas de 1 a 11'''
     ws.delete_rows(ini,end)
 
 
-def change_colour(ws): 
+def change_column_fill(ws): 
     '''Metodo que a todas la celdas les pone color blanco (quita el amarillo) '''
     max_row = ws.max_row
     max_column = ws.max_column
@@ -55,26 +55,34 @@ def insert_column(ws, colNr ,headerRow , headerVal):
 
 def subtract_two_column(ws):
     """Obtiene el resultado de la resta entre la columna G Y H"""
-    g_col, h_col = ['G', 'H']
+    min, sub = ['G', 'H']
     for row in range(ws.max_row, 1, -1):
         result_cell = 'I{}'.format(row)
-
-    g_value = ws[g_col + str(row)].value
-    h_value = ws[h_col +str(row)].value
-
-    if g_value and h_value:   
-       ws[result_cell] =  int(g_value) - int(h_value)
-     
-
-def format_column_number(ws):
-    """Formatea la columna H a numero y le quita las advertencias de error """
-    for row in range(ws.max_row, 1, -1):
-        print("hola")
-        #ws['H' + str(row)].numb_format = numbers.FORMAT_NUMBER
-        #ws['H' + str(row)].typeformat = "n"
+        minuend = ws[min + str(row)].value
+        subtrahend = ws[sub + str(row)].value
+    
+        if minuend and subtrahend:
+            try:
+                ws[result_cell] =  int(minuend) - int(subtrahend)
+            except:   
+                print("las celdas contienen valores erroneos y no se pueden restar, se marcan en rojo")
 
 
-def format_column(ws, colNr):
+
+def tick_red_cell(ws, color, colNr):
+    """Marca en rojo las celdas que no tienen valor"""
+    max_row = ws.max_row
+    max_column = ws.max_column
+    
+
+    for i_row in range(1, max_row + 1):
+       for i_column in range(1, max_column + 1):
+        cell_new = ws.cell(row=i_row, column= i_column)
+        if cell_new.value == None and colNr == i_column:
+           cell_new.fill = color
+
+        
+def copy_format_column(ws, colNr):
     '''Metodo que da formato a la columna que se ha creado usando método range'''
     max_row = ws.max_row
 
@@ -93,7 +101,7 @@ def format_column_iter(ws, colNr):
                 copyStyle(cell_new, cell_origin)
         
 
-def format_condition(ws, colNr, condition, color):     
+"""def format_condition(ws, colNr, condition, color):     
     '''Metodo que da formato a la columna que se ha creado según criterio'''   
 
     max_row = ws.max_row    
@@ -101,9 +109,9 @@ def format_condition(ws, colNr, condition, color):
         cell_new = ws.cell(row=i_row, column= colNr)
         cell_condition = ws.cell(row=i_row, column= colNr-3)
         if cell_condition.value == condition:
-           cell_new.fill = color
+           cell_new.fill = color"""
 
-def format_condition_iter(ws, colNr, condition, color):     
+"""def format_condition_iter(ws, colNr, condition, color):     
     '''Metodo que da formato a la columna que se ha creado según criterio utilizando iter_cols y enumerate'''  
     
     for col in ws.iter_cols(min_row=1, min_col=colNr-3, max_col=colNr-3, values_only=True): 
@@ -114,7 +122,7 @@ def format_condition_iter(ws, colNr, condition, color):
               
               cell_coor = ws.cell(row=i+1,column= colNr).coordinate
               cell = ws[cell_coor]
-              cell.fill = color      
+              cell.fill = color"""    
 
 def format_condition_iter2(ws, colNr, condition, color):     
     '''Metodo que da formato a la columna que se ha creado según criterio utilizando iter_cols y cell'''  
@@ -126,7 +134,7 @@ def format_condition_iter2(ws, colNr, condition, color):
             if cell_condition.value == condition:
 
               cell_coor = ws.cell(row=cell_condition.row, column=colNr).coordinate
-              print('coordenada: ', cell_coor)
+              #print('coordenada: ', cell_coor)
               #Se utiliza la coordenada de la celda (cell_coor) para obtener un objeto cell de la hoja de cálculo (ws) 
               #correspondiente a la celda en la fila y columna especificadas.
               cell = ws[cell_coor]
