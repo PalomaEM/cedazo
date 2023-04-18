@@ -190,5 +190,63 @@ def change_column_TeamRequestComment1(ws):
                 cell.value = "CLIENTE"
 
 
+         
+def change_column_criticality(ws, colNr, color):  #PRUEBAS OK 
+    """Si la columnas de pendientes esta a 0 en la columna F ponemos la palabra CUBIERTA """
+    max_row = ws.max_row
+    max_column = ws.max_column
+    
 
+    for i_row in range(1, max_row + 1):
+       for i_column in range(1, max_column + 1):
+        cell_new = ws.cell(row=i_row, column= i_column)
+        if cell_new.value == 0 and colNr == i_column:
+           cell_change_f = colNr-3
+           ws.cell(row=i_row, column=cell_change_f, value="CUBIERTA")
+           cell_change_c = colNr-6
+           ws.cell(row=i_row, column=cell_change_c).fill = color
+   
+         
 
+def change_column_criticality2(ws, colNr_i, colNr_e, color): # PRUEBAS OK 
+    """#Si en la columna FTES. Pdtes. Es distinto de 0 y IsPositionCritical es igual a "Yes" pinta se pone el la columna f(CRITICIDAD) a CRITICO Y SE PINTA DE ROJO"""
+    max_row = ws.max_row
+    max_column = ws.max_column
+    
+
+    for i_row in range(1, max_row + 1):
+       for i_column_i in range(1, max_column + 1):
+           cell_new_i = ws.cell(row=i_row, column= i_column_i) 
+
+           if cell_new_i.value != 0 and colNr_i == i_column_i: 
+              for i_column_e in range(1, max_column + 1):
+                  cell_new_e = ws.cell(row=i_row, column= i_column_e) 
+                  if cell_new_i.value != 0:
+                    if colNr_e == i_column_e and cell_new_e.value  == "Yes":
+                       cell_change_f = colNr_e+1 
+                       ws.cell(row=i_row, column=cell_change_f, value="CRITICA")
+                       cell_change_f = colNr_e-2
+                       ws.cell(row=i_row, column=cell_change_f).fill = color
+   
+
+def define_criticality(ws, color1, color2):
+    for row in range(ws.max_row, 1, -1):
+        if ws['F' + str(row)].value:
+           if ws['F' + str(row)].value.lower() in ['critica', 'urgente'] and ws['E' + str(row)].value == 'No' and ws['I' + str(row)].value !=0:
+              ws['F' + str(row)].value = 'URGENTE'
+              ws['C' + str(row)].fill = color1
+           if ws['F' + str(row)].value.lower() not in ['critica', 'urgente'] and ws['E' + str(row)].value == 'No' and ws['I' + str(row)].value !=0:
+              ws['F' + str(row)].value = 'NORMAL'
+              ws['C' + str(row)].fill = color2
+        else:
+              ws['F' + str(row)].value = 'NORMAL'
+              ws['C' + str(row)].fill = color2
+       
+
+def find_string(ws, string, color):
+    for row in range(1, ws.max_row + 1):
+        value = ws['F' + str(row)].value
+        if value:
+            file_content = value.lower()
+            if string in file_content:
+                ws['C' + str(row)].fill = color
