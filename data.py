@@ -54,13 +54,12 @@ def insert_column(ws, colNr ,headerRow , headerVal):
     ws.cell(row=headerRow, column=colNr).value = headerVal
 
 
-def format_colum_to_number(ws, column_id):
-    max_row = ws.max_row
-    
-    for row in range(1, max_row + 1):
-        if  ws[column_id + str(row)].value and "," in ws[column_id + str(row)].value:
-            ws[column_id + str(row)].value = ws[column_id + str(row)].value.replace(",",".")
-    ws[column_id + str(row)].data_type = 'n'        
+def format_colum_to_number(ws):
+    """Metodo que cambia en la columna H los la coma de decimales por punto"""
+    for row in range(ws.max_row, 1, -1):
+        if ws['H' + str(row)].value and "," in ws['H' + str(row)].value:
+           ws['H' + str(row)].value = ws['H' + str(row)].value.replace(",",".")
+    ws['H' + str(row)].data_type = 'n'       
 
 
 def subtract_two_column(ws):

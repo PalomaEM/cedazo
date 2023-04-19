@@ -26,14 +26,14 @@ change_column_fill(ws)
 color_yellow = PatternFill(start_color="FFFFFF99", end_color="FFFFFF99", fill_type = "solid")
 format_condition_iter2(ws, colNr= 9, condition="CRITICA", color=color_yellow)
 
+#Cambiar el formato de una columna de "." a ","
+format_colum_to_number(ws)
+
 # Metodo que inserta una columna nueva detrás de la columna H poniendo la cabecera y copiando el formato de la columna H
 insert_column(ws, colNr=9, headerRow=1, headerVal='FTES. Pdtes.')
 
 #Metodo que da formato a la columna que se ha creado 
 copy_format_column(ws, colNr= 9)
-
-#Cambiar el formato de una columna de "." a ","
-format_colum_to_number(ws, column_id=9)
 
 #Sumamos las columnas G y H 
 subtract_two_column(ws)
