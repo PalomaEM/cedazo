@@ -2,7 +2,7 @@
 # Cedazo - Morph, Meld and Merge data - Copyright © 2023 Iwan van der Kleijn - See LICENSE.txt for conditions
 #from openpyxl import Workbook
 import openpyxl
-from data import change_column_AdditionalNotes,  change_column_TeamRequestComment1, change_column_criticality, change_column_criticality2, change_column_fill, copy_format_column, define_criticality, delete_rows_LeadPracticeArea, delete_rows_TeamRequestStatu, find_column_Team, find_column_lead, format_condition_iter2, insert_column, remove_rows, subtract_two_column, tick_red_cell, unmerge_cells
+from data import change_column_AdditionalNotes,  change_column_TeamRequestComment1, change_column_criticality, change_column_criticality2, change_column_fill, copy_format_column, define_criticality, delete_rows_LeadPracticeArea, delete_rows_TeamRequestStatu, find_column_Team, find_column_lead, format_colum_to_number, format_condition_iter2, insert_column, remove_rows, subtract_two_column, tick_red_cell, unmerge_cells
 #change_column_AdditionalNotes, change_column_TeamRequestComment1, delete_rows_LeadPracticeArea, delete_rows_TeamRequestStatu, find_column_Team, find_column_lead,
 from miargparse import parser
 from openpyxl.styles import PatternFill 
@@ -32,7 +32,10 @@ insert_column(ws, colNr=9, headerRow=1, headerVal='FTES. Pdtes.')
 #Metodo que da formato a la columna que se ha creado 
 copy_format_column(ws, colNr= 9)
 
-#Sumamos las columnas G y H --------------------------->
+#Cambiar el formato de una columna de "." a ","
+format_colum_to_number(ws, column_id=9)
+
+#Sumamos las columnas G y H 
 subtract_two_column(ws)
 
 #Poner la columna en rojo si no se ha podido restar (G Y H)
